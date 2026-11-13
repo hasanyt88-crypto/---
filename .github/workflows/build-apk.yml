@@ -18,11 +18,15 @@ jobs:
         with:
           node-version: '20'
 
-      - name: Setup Expo and EAS
-        uses: expo/expo-github-action@v8
-        with:
-          eas-version: latest
-          token: ${{ secrets.EXPO_TOKEN }}
+      - - name: Setup Expo and EAS
+  uses: expo/expo-github-action@v8
+  with:
+    eas-version: latest
+    token: ${{ secrets.EXPO_TOKEN }}
+    eas-cache: false # تعطيل التخزين المؤقت لـ EAS لتجنب أخطاء التثبيت
+    
+- name: Install EAS CLI manually
+  run: npm install -g eas-cli }}
 
       - name: Install dependencies
         run: npm ci
