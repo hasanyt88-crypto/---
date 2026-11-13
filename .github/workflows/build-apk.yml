@@ -21,8 +21,10 @@ jobs:
       - name: Install dependencies
         run: npm install
 
-      - name: Install EAS CLI (Latest)
-        run: npm install -g eas-cli@latest
+      - name: Install EAS CLI and Local Build Plugin
+        run: |
+          npm install -g eas-cli@latest
+          npm install -g eas-cli-local-build-plugin@latest
 
       - name: Initialize EAS Project
         env:
@@ -33,6 +35,8 @@ jobs:
         env:
           EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
           EAS_NO_VCS: "1"
+          EAS_LOCAL_BUILD_SKIP_CLEANUP: "1"
+          EXPO_DEBUG: "1"
         run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
 
       - name: Upload APK
