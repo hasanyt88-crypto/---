@@ -25,14 +25,9 @@ jobs:
         run: npm install
 
       - name: Build APK locally
-  env:
-    EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-  run: |
-    eas build --local \
-      --non-interactive \
-      --output=./app.apk \
-      --platform=android \
-      --profile=preview
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
