@@ -13,6 +13,7 @@
     }
   },
   "cli": {
-    "appVersionSource": "local"
+    "appVersionSource": "local",
+    "requireCommit": true
   }
 }
