@@ -10,36 +10,33 @@ jobs:
     runs-on: ubuntu-latest
 
     steps:
-      - name: Checkout repository
-        uses: actions/checkout@v4
+    - name: Checkout repository
+      uses: actions/checkout@v4
 
-      - name: Setup Node.js
-        uses: actions/setup-node@v4
-        with:
-          node-version: '20'
+    - name: Setup Node.js
+      uses: actions/setup-node@v4
+      with:
+        node-version: '20'
 
-      - name: Install dependencies
-        run: npm install
+    - name: Install dependencies
+      run: npm install
 
-      - name: Install EAS CLI and Local Build Plugin
-        run: |
-          npm install -g eas-cli@latest
-          npm install -g eas-cli-local-build-plugin@latest
+    - name: Install EAS Tools
+      run: npm install -g eas-cli@latest eas-cli-local-build-plugin@latest
 
-      - name: Initialize EAS Project
-        env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-        run: eas init --non-interactive --force
+    - name: Initialize EAS Project
+      env:
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      run: eas init --non-interactive --force
 
-      - name: Build APK locally
-        env:
-  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-  EAS_NO_VCS: "1"
-  EAS_LOCAL_BUILD_SKIP_CLEANUP: "1"
-  EXPO_DEBUG: "1"
+    - name: Build APK locally
+      env:
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        EAS_NO_VCS: "1"
+      run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
 
-      - name: Upload APK
-        uses: actions/upload-artifact@v4
-        with:
-          name: app-release
-          path: ./app.apk
+    - name: Upload APK
+      uses: actions/upload-artifact@v4
+      with:
+        name: app-release
+        path: ./app.apk
