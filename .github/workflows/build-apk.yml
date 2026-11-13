@@ -24,9 +24,14 @@ jobs:
       - name: Install dependencies
         run: npm install
 
+      - name: Initialize EAS Project
+  run: eas init --non-interactive --force
+  env:
+    EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+      
       - name: Build APK locally
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+        EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
         run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
 
       - name: Upload APK
