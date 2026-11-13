@@ -33,11 +33,10 @@ jobs:
 
       - name: Build APK locally
         env:
-          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-          EAS_NO_VCS: "1"
-          EAS_LOCAL_BUILD_SKIP_CLEANUP: "1"
-          EXPO_DEBUG: "1"
-        run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
+  EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+  EAS_NO_VCS: "1"
+  EAS_LOCAL_BUILD_SKIP_CLEANUP: "1"
+  EXPO_DEBUG: "1"
 
       - name: Upload APK
         uses: actions/upload-artifact@v4
