@@ -30,10 +30,11 @@ jobs:
         run: eas init --non-interactive --force
 
       - name: Build APK locally
-  env:
-    EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
-    EAS_NO_VCS: "1" # <-- أضف هذا السطر
-  run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
+        env:
+          EXPO_TOKEN: ${{ secrets.EXPO_TOKEN }}
+          EAS_NO_VCS: "1"
+        run: eas build --local --non-interactive --output=./app.apk --platform=android --profile=preview
+
       - name: Upload APK
         uses: actions/upload-artifact@v4
         with:
